@@ -46,7 +46,7 @@ func main() {
 	totalWords := 0
 	for _, i := range fileLines {
 		wg.Add(1)
-		go func(s string, t int) {
+		go func(s string) {
 			words := strings.Split(s, " ")
 			mutex.Lock()
 			totalWords += len(words)
@@ -59,7 +59,7 @@ func main() {
 			}
 			mutex.Unlock()
 			wg.Done()
-		}(i, totalWords)
+		}(i)
 	}
 	wg.Wait()
 
